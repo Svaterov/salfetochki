@@ -111,7 +111,7 @@
 $cars = [
     [
         'name' => 'Toyota Camry',
-        'photo' => 'images/cars/',
+        'photo' => 'images/cars/camry.jpg', // предполагается полный путь или корректный относительный
         'features' => [
            'выпуск' => '2022',
            'Двигатель' => '2.5L 4-цилиндра',
@@ -121,7 +121,7 @@ $cars = [
     ],
     [
        'name' => 'Honda Accord',
-       'photo' => 'images/cars/honda_accord.jpg',
+       'photo' => 'images/cars/honda.jpg',
        'features' => [
            'выпуск' => '2021',
            'Двигатель' => '1.5L турбо',
@@ -131,7 +131,7 @@ $cars = [
    ],
    [
        'name' => 'Ford Mustang',
-       'photo' => 'images/cars/ford_mustang.jpg',
+       'photo' => 'images/cars/mustang.jpg',
        'features' => [
            'выпуск' => '2023',
            "Двигатель" => "5.0L V8",
@@ -141,7 +141,7 @@ $cars = [
    ],
    [
        "name" => "BMW Series 3",
-       "photo" => "images/cars/bmw_series3.jpg",
+       "photo" => "images/cars/bmw.jpg",
        "features" => [
            "выпуск" => "2022",
            "Двигатель" => "2.0L турбо",
@@ -151,7 +151,7 @@ $cars = [
    ],
    [
        "name" => "Audi A4",
-       "photo" => "images/cars/audi_a4.jpg",
+       "photo" => "images/cars/audi.jpg",
        "features" => [
            "выпуск" => "2022",
            "Двигатель" => "2.0L турбо",
@@ -170,19 +170,22 @@ $cars = [
        ],
    ],
 
-   // Добавьте остальные машины по аналогии
+   // Можно добавить остальные машины по аналогии
 ];
 
-    <div class="car-card">
-        <div class="car-name">{{ $car['name'] }}</div>
-        <img src="{{ asset($car['photo']) }}" alt="{{ $car['name'] }}" class="car-photo">
-        <ul>
-             @foreach ($car['features'] as $feature=>$value)
-                <li><strong>{{ $feature }}:</strong> {{ $value }}</li>
-             @endforeach
-         </ul>
-     </div>
-
-</div> <!-- закрытие контейнера -->
+foreach ($cars as $car): ?>
+<div class="car-card">
+    <div class="car-name"><?php echo htmlspecialchars($car['name']); ?></div>
+    <img src="<?php echo htmlspecialchars($car['photo']); ?>" alt="<?php echo htmlspecialchars($car['name']); ?>" class="car-photo">
+    <ul>
+        <?php if(isset($car['features']) && is_array($car['features'])):
+                foreach ($car['features'] as $feature=>$value): ?>
+                    <li><strong><?php echo htmlspecialchars($feature); ?>:</strong> <?php echo htmlspecialchars($value); ?></li>
+                <?php endforeach; 
+              endif; ?>
+    </ul>
+</div>
+<?php endforeach; ?>
+</div> <!-- закрытие cars-container -->
 </body>
 </html>
