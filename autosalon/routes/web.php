@@ -79,3 +79,5 @@ Route::get('/cars', function () {
     return view('cars', ['cars' => $cars]);
 });
 
+// Маршрут для страницы мототехники
+Route::get('/mototechnique', [App\Http\Controllers\MainController::class, 'mototechnique'])->name('mototechnique');
